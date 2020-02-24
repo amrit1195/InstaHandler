@@ -7,7 +7,7 @@ import {ImageViewerComponent} from '../UI/image-viewer/image-viewer.component';
 export const appRoutes: Routes = [
   {path: '', component: ImageViewerComponent},
   {path: 'login', component: InstagramLoginComponent},
-  {path: 'gallary', component: ImageViewerComponent}
+  {path: 'gallery', component: ImageViewerComponent}
 ];
 
 @NgModule({
