@@ -1,66 +1,20 @@
-import {Injectable, OnDestroy} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
 
 
 @Injectable()
-export class DataManagerService  {
-  tag = 'app/data/services/DataManager/DataManagerService';
+export class DataManagerService {
   protected httpClient: HttpClient;
   protected httpHeaders: HttpHeaders;
-  protected httpHeaders2: HttpHeaders;
-  public accessToken: string;
-  public selectedProject = new Subject<any>();
 
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
-    this.httpHeaders2 = new HttpHeaders().set('Content-Type', 'application/json');
-    this.httpHeaders = new HttpHeaders().set('Authorization', this.accessToken);
-    console.log(this.accessToken);
+    this.httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    this.httpHeaders = this.httpHeaders.append('Accept-Version', 'v1');
+    this.httpHeaders = this.httpHeaders.append('Authorization', 'Client-ID LpY5-kwMWz43wGsK_Lw7lDAlhi6DAvCPbk0Rpk6NcFo');
   }
 
-  /**
-   * func to check if access token is pesent
-   * @returns {boolean}
-   */
-  accessTokenExists() {
-    return this.accessToken ? true : false;
-  }
-
-  createHeaderWithUersAccessToken() {
-    console.log('new object for header created');
-    this.httpHeaders = new HttpHeaders().set('Authorization', this.accessToken);
-  }
-
-  /**
-   * func to return name for
-   * loggedIn/registered user
-   * @returns {string}
-   */
-  getCurrentUserName() {
-    // return this.currentUser.name;
-  }
-
-  /**
-   * func to get current
-   * logged in user id
-   * @returns {string}
-   */
-  getCurrentUserId() {
-    // return this.currentUser !== null ? this.currentUser.id : 1;
-  }
-
-  /**
-   * func to login to server
-   * with user creds
-   * @param url
-   * @param creds
-   * @returns {Observable<any>}
-   */
-  login(url, creds): Observable<any> {
-    return this.httpClient.post(url, creds, {headers: this.httpHeaders2});
-  }
 
   /**
    * func to cal api using get Request
@@ -72,7 +26,7 @@ export class DataManagerService  {
   getRequest(url: string): Observable<any> {
     console.log({headers: this.httpHeaders});
     console.log('url', url);
-    return this.httpClient.get(url, {headers: this.httpHeaders2});
+    return this.httpClient.get(url, {headers: this.httpHeaders});
   }
 
   /**
@@ -84,9 +38,7 @@ export class DataManagerService  {
    * @returns {MonoTypeOperatorFunction<>} response returned
    */
   postRequest(url: string, payload: any): Observable<any> {
-    console.log(this.tag, url);
-    console.log(this.tag, payload);
-    return this.httpClient.post(url, payload, {headers: this.httpHeaders2});
+    return this.httpClient.post(url, payload, {headers: this.httpHeaders});
   }
 
   /**

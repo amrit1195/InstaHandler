@@ -12,6 +12,8 @@ body {
 .main {
   max-width: 1000px;
   margin: auto;
+  position: relative;
+  height: 100%;
 }
 
 h1 {
@@ -27,13 +29,14 @@ h1 {
 .row,
 .row > .column {
   padding: 8px;
+  height: 200px;
 }
 
 /* Create three equal columns that floats next to each other */
 .column {
   float: left;
   width: 33.33%;
-  display: none; /* Hide all elements by default */
+  position: relative;
 }
 
 /* Clear floats after rows */
@@ -47,6 +50,7 @@ h1 {
 .content {
   background-color: white;
   padding: 10px;
+  height: 100%;
 }
 
 /* The "show" class is added to the filtered elements */
@@ -70,4 +74,16 @@ h1 {
 .btn.active {
   background-color: #666;
   color: white;
+}
+
+#myBtnContainer {
+  height: 40px;
+  position: relative;
+}
+
+.scroll-container {
+  height: calc( 100% - 40px);
+  overflow: auto;
+  display: block;
+  width: 100%;
 }

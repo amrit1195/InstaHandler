@@ -1,58 +1,52 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {DataManagerService} from '../../services/data-manager.service';
+import {ImageViewerComponentAction} from './image-viewer.component.action';
+import {AppConstant} from '../../constant/app-constant';
+import {ImageModel} from '../../Models/image.model';
 
 @Component({
   selector: 'app-image-viewer',
   templateUrl: './image-viewer.component.html',
   styleUrls: ['./image-viewer.component.css']
 })
-export class ImageViewerComponent implements OnInit {
+export class ImageViewerComponent extends ImageViewerComponentAction implements OnInit {
+  ImageList: ImageModel[];
+  btn;
 
-  constructor() { }
+  constructor(dataManager: DataManagerService) {
+    super();
+    this.dataManager = dataManager;
+    this._getImageUrl = AppConstant.BaseUrl + AppConstant.PhotoList;
+    this.getImage(this._getImageUrl);
+    this.btn = 'all';
+  }
 
   ngOnInit() {
   }
 
-   filterSelection(c) {
-    let x, i;
-    x = document.getElementsByClassName('column');
-    if (c === 'all') { c = ''; }
-    for (i = 0; i < x.length; i++) {
-      this.RemoveClass(x[i], 'show');
-      if (x[i].className.indexOf(c) > -1) { this.AddClass(x[i], 'show'); }
-    }
-  }
+  filterSelection(c) {
+    this.btn = c;
+    if (c === 'all') {
+      this._getImageUrl = AppConstant.BaseUrl + AppConstant.PhotoList;
 
-   AddClass(element, name) {
-    let i, arr1, arr2;
-    arr1 = element.className.split(' ');
-    arr2 = name.split(' ');
-    for (i = 0; i < arr2.length; i++) {
-      if (arr1.indexOf(arr2[i]) === -1) {element.className += ' ' + arr2[i]; }
+    } else {
+      this._getImageUrl = AppConstant.BaseUrl + AppConstant.Search + AppConstant.PhotoList + '?page=1&query=' + this.btn;
     }
-  }
-
-   RemoveClass(element, name) {
-    let i, arr1, arr2;
-    arr1 = element.className.split(' ');
-    arr2 = name.split(' ');
-    for (i = 0; i < arr2.length; i++) {
-      while (arr1.indexOf(arr2[i]) > -1) {
-        arr1.splice(arr1.indexOf(arr2[i]), 1);
-      }
-    }
-    element.className = arr1.join(' ');
+    this.getImage(this._getImageUrl);
   }
 
 
-// Add active class to the current button (highlight it)
-  /*let btnContainer = document.getElementById('myBtnContainer');
-  let btns = btnContainer.getElementsByClassName('btn');
-  for (let i = 0; i < btns.length; i++) {
-  btns[i].addEventListener('click', () {
-    let current = document.getElementsByClassName('active');
-    current[0].className = current[0].className.replace(' active', '');
-    this.className += ' active';
-  });
-}*/
+  protected passGetImageRes(res) {
+    if (this.btn === 'all') {
+      this.ImageList = res;
+    } else {
+      this.ImageList = res.results;
+    }
+    console.log(this.ImageList, 'image');
+  }
+
+  protected passGetImageErr(err) {
+  }
+
 
 }

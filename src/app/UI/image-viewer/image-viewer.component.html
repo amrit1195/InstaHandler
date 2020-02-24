@@ -1,81 +1,27 @@
 <div class="main">
 
   <div id="myBtnContainer">
-    <button class="btn active" (click)="filterSelection('all')"> Show all</button>
-    <button class="btn" (click)="filterSelection('nature')"> Nature</button>
-    <button class="btn" (click)="filterSelection('cars')"> Cars</button>
-    <button class="btn" (click)="filterSelection('people')"> People</button>
+    <button class="btn" [ngClass]="btn === 'all' ? 'active' : ''" (click)="filterSelection('all')"> Show all</button>
+    <button class="btn" [ngClass]="btn === 'mountain' ? 'active' : ''" (click)="filterSelection('mountain')"> Mountain</button>
+    <button class="btn" [ngClass]="btn === 'road' ? 'active' : ''" (click)="filterSelection('road')"> Road</button>
+    <button class="btn" [ngClass]="btn === 'fashion' ? 'active' : ''" (click)="filterSelection('fashion')"> Fashion</button>
+    <button class="btn" [ngClass]="btn === 'beach' ? 'active' : ''" (click)="filterSelection('beach')"> Beach</button>
+    <button class="btn" [ngClass]="btn === 'food' ? 'active' : ''" (click)="filterSelection('food')"> Food</button>
+    <button class="btn" [ngClass]="btn === 'sunset' ? 'active' : ''" (click)="filterSelection('sunset')"> Sunset</button>
+    <button class="btn" [ngClass]="btn === 'music' ? 'active' : ''" (click)="filterSelection('music')"> Music</button>
+    <button class="btn" [ngClass]="btn === 'work' ? 'active' : ''" (click)="filterSelection('work')"> Work</button>
   </div>
 
   <!-- Portfolio Gallery Grid -->
-  <div class="row">
-    <div class="column nature">
-      <div class="content">
-        <img src="https://www.w3schools.com/w3images/mountains.jpg" alt="Mountains" style="width:100%">
-        <h4>Mountains</h4>
-        <p>Lorem ipsum dolor..</p>
+  <div class="scroll-container">
+    <div class="row no-padding full-width">
+      <div class="column col-md-4 no-padding show" *ngFor="let img of ImageList">
+        <div class="content">
+          <img [src]="img.urls.thumb" alt="Mountains" style="width:100%; height: 100%">
+        </div>
       </div>
+      <!-- END GRID -->
     </div>
-    <div class="column nature">
-      <div class="content">
-        <img src="https://www.w3schools.com/w3images/lights.jpg" alt="Lights" style="width:100%">
-        <h4>Lights</h4>
-        <p>Lorem ipsum dolor..</p>
-      </div>
-    </div>
-    <div class="column nature">
-      <div class="content">
-        <img src="https://www.w3schools.com/w3images/nature.jpg" alt="Nature" style="width:100%">
-        <h4>Forest</h4>
-        <p>Lorem ipsum dolor..</p>
-      </div>
-    </div>
-
-    <div class="column cars">
-      <div class="content">
-        <img src="https://www.w3schools.com/w3images/cars1.jpg" alt="Car" style="width:100%">
-        <h4>Retro</h4>
-        <p>Lorem ipsum dolor..</p>
-      </div>
-    </div>
-    <div class="column cars">
-      <div class="content">
-        <img src="https://www.w3schools.com/w3images/cars2.jpg" alt="Car" style="width:100%">
-        <h4>Fast</h4>
-        <p>Lorem ipsum dolor..</p>
-      </div>
-    </div>
-    <div class="column cars">
-      <div class="content">
-        <img src="https://www.w3schools.com/w3images/cars3.jpg" alt="Car" style="width:100%">
-        <h4>Classic</h4>
-        <p>Lorem ipsum dolor..</p>
-      </div>
-    </div>
-
-    <div class="column people">
-      <div class="content">
-        <img src="https://www.w3schools.com/w3images/people1.jpg" alt="Car" style="width:100%">
-        <h4>Girl</h4>
-        <p>Lorem ipsum dolor..</p>
-      </div>
-    </div>
-    <div class="column people">
-      <div class="content">
-        <img src="https://www.w3schools.com/w3images/people2.jpg" alt="Car" style="width:100%">
-        <h4>Man</h4>
-        <p>Lorem ipsum dolor..</p>
-      </div>
-    </div>
-    <div class="column people">
-      <div class="content">
-        <img src="https://www.w3schools.com/w3images/people3.jpg" alt="Car" style="width:100%">
-        <h4>Woman</h4>
-        <p>Lorem ipsum dolor..</p>
-      </div>
-    </div>
-    <!-- END GRID -->
   </div>
-
   <!-- END MAIN -->
 </div>
